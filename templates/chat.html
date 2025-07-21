@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Sohbet Odası</title>
+</head>
+<body>
+    <h1>Sohbet Odası</h1>
+    <p>Hoşgeldin, <strong>{{ isim }}</strong>! <a href="{{ url_for('logout') }}">Çıkış yap</a></p>
+    <form method="POST" action="/chat">
+        <input type="text" name="message" placeholder="Mesaj yaz..." required autocomplete="off">
+        <button type="submit">Gönder</button>
+    </form>
+    <ul>
+        {% for item in messages %}
+            <li><strong>{{ item.name }}:</strong> {{ item.text }} <em>({{ item.time }})</em></li>
+        {% else %}
+            <li>Henüz mesaj yok.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
