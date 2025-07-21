@@ -2,20 +2,134 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8" />
-    <title>Basit Sohbet Uygulaması</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sohbet Uygulaması</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        header {
+            background: #4a90e2;
+            color: white;
+            padding: 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .messages {
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+        }
+        .message {
+            background: #e1ecf7;
+            padding: 10px 15px;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            max-width: 80%;
+            word-wrap: break-word;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .message time {
+            display: block;
+            font-size: 0.75rem;
+            color: #555;
+            margin-top: 5px;
+            text-align: right;
+            font-style: italic;
+        }
+        form {
+            display: flex;
+            padding: 15px 20px;
+            background: #fafafa;
+            gap: 10px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 30px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+        button {
+            background: #4a90e2;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background: #357ABD;
+        }
+        .messages::-webkit-scrollbar {
+            width: 8px;
+        }
+        .messages::-webkit-scrollbar-thumb {
+            background-color: #a0aec0;
+            border-radius: 10px;
+        }
+        @media (max-width: 480px) {
+            .container {
+                width: 100%;
+                height: 100vh;
+                border-radius: 0;
+            }
+            .messages {
+                height: calc(100vh - 140px);
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Sohbet</h1>
-    <form method="POST" action="/">
-        <input type="text" name="mesaj" placeholder="Mesaj yaz..." required autocomplete="off" />
-        <button type="submit">Gönder</button>
-    </form>
-
-    <h2>Mesajlar</h2>
-    <ul>
-        {% for msg in messages %}
-            <li>{{ msg }}</li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <header>Sohbet Uygulaması</header>
+        <div class="messages">
+            {% for msg in messages %}
+                {% set zaman, metin = msg.split(' - ', 1) %}
+                <div class="message">
+                    {{ metin }}
+                    <time>{{ zaman }}</time>
+                </div>
+            {% else %}
+                <p>Henüz mesaj yok.</p>
+            {% endfor %}
+        </div>
+        <form method="POST" action="/">
+            <input type="text" name="mesaj" placeholder="Mesajınızı yazın..." autocomplete="off" required />
+            <button type="submit">Gönder</button>
+        </form>
+    </div>
 </body>
 </html>
+
