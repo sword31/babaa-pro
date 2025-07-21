@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Basit Sohbet Uygulaması</title>
+</head>
+<body>
+    <h1>Sohbet</h1>
+    <form method="POST" action="/">
+        <input type="text" name="mesaj" placeholder="Mesaj yaz..." required autocomplete="off" />
+        <button type="submit">Gönder</button>
+    </form>
+
+    <h2>Mesajlar</h2>
+    <ul>
+        {% for msg in messages %}
+            <li>{{ msg }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
